@@ -1,29 +1,28 @@
-import React, { useState } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { ThunkDispatch } from "redux-thunk";
-import { AnyAction } from "redux";
-import { startAddTask } from "../actions/task";
 import { History } from "history";
+import React, { useState } from "react";
+import TaskType from "../types/task";
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
-  addTask: (arg0: string, arg1: boolean) => dispatch(startAddTask(arg0, arg1))
-});
-
-const connector = connect(undefined, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
+interface ITaskFormProps {
   history: History<any>;
-};
+  saveTask: (arg0: string, arg1: boolean) => Promise<void>;
+  task?: TaskType;
+}
 
-const TaskForm = ({ history, addTask }: Props) => {
-  const [description, setDescription] = useState("");
-  const [completed, setCompleted] = useState(false);
+export const TaskForm = ({
+  history,
+  saveTask,
+  task
+}: ITaskFormProps) => {
+  const [description, setDescription] = useState(
+    task?.description || ""
+  );
+  const [completed, setCompleted] = useState(
+    task?.completed || false
+  );
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
-    addTask(description, completed);
+    saveTask(description, completed);
     history.push("/dashboard");
   };
 
@@ -32,7 +31,9 @@ const TaskForm = ({ history, addTask }: Props) => {
       <input
         type="text"
         value={description}
-        onChange={(e: any) => setDescription(e.target.value)}
+        onChange={(e: any) =>
+          setDescription(e.target.value)
+        }
       />
       <input
         type="checkbox"
@@ -44,4 +45,4 @@ const TaskForm = ({ history, addTask }: Props) => {
   );
 };
 
-export default connector(TaskForm);
+export default TaskForm;

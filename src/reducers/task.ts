@@ -1,16 +1,16 @@
 import TaskType from "../types/task";
 import { TaskActionType } from "../actions/task";
 
-interface TaskStateType {
+export interface TaskStateType {
   tasks: TaskType[];
 }
 
-const taskReducerDefaultState = {
+export const tasksDefaultState = {
   tasks: []
 };
 
 export default (
-  state: TaskStateType = taskReducerDefaultState,
+  state: TaskStateType = tasksDefaultState,
   action: TaskActionType
 ) => {
   switch (action.type) {
@@ -24,7 +24,24 @@ export default (
       };
     case "REMOVE_TASK":
       return {
-        tasks: state.tasks.filter((task) => task._id !== action.id)
+        tasks: state.tasks.filter(
+          (task) => task._id !== action.id
+        )
+      };
+    case "CLEAR_TASKS":
+      return {
+        tasks: []
+      };
+    case "EDIT_TASK":
+      return {
+        tasks: state.tasks.map((task) => {
+          if (task._id === action.id)
+            return {
+              ...task,
+              ...action.updates
+            };
+          else return task;
+        })
       };
     default:
       return state;

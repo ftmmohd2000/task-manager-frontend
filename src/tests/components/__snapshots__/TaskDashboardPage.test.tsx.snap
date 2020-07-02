@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render TaskDashboardPage correctly 1`] = `
+<div>
+  <Connect(Header)
+    history={
+      Object {
+        "push": [MockFunction],
+      }
+    }
+  />
+  <TaskList
+    handleRemove={[Function]}
+    tasks={
+      Array [
+        Object {
+          "_id": "jihugytdrhgxcvbhjkuyyri76uy",
+          "completed": false,
+          "description": "Get Swole",
+        },
+        Object {
+          "_id": "jihugyjhuyo8767563teyri76uydh",
+          "completed": true,
+          "description": "Get groceries",
+        },
+        Object {
+          "_id": "jihugytdrh657tuyg3rheduyyri76uy",
+          "completed": false,
+          "description": "Im not creative",
+        },
+      ]
+    }
+  />
+  <Link
+    to="/add"
+  >
+    Add Task
+  </Link>
+</div>
+`;

@@ -10,13 +10,17 @@ const PrivateRoute = ({
   <Route
     {...rest}
     component={(props: any) =>
-      isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
+      isAuthenticated ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/" />
+      )
     }
   />
 );
 
 const mapStateToProps = (state: any) => ({
-  isAuthenticated: !!state.auth.user
+  isAuthenticated: !!state.auth.user.token
 });
 
 export default connect(mapStateToProps)(PrivateRoute);

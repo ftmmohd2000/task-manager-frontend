@@ -1,14 +1,19 @@
 import UserType from "../types/user";
 import { AuthActionType } from "../actions/auth";
 
-interface AuthStateType {
-  user: UserType | null;
-  token: string;
+export interface AuthStateType {
+  user: UserType;
 }
 
-const authDefaultState = {
-  user: null,
-  token: ""
+export const authDefaultState = {
+  user: {
+    name: "",
+    age: 0,
+    email: "",
+    password: "",
+    id: "",
+    token: ""
+  }
 };
 
 export default (
@@ -18,14 +23,10 @@ export default (
   switch (action.type) {
     case "LOGIN":
       return {
-        user: action.user,
-        token: action.token
+        user: action.user
       };
     case "LOGOUT":
-      return {
-        user: null,
-        token: ""
-      };
+      return authDefaultState;
     default:
       return state;
   }

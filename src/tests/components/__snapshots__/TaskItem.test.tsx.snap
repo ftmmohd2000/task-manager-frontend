@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render TaskItem correctly 1`] = `
+<div>
+  <p>
+    Im not creative
+  </p>
+  <p>
+    Completed: 
+    no
+  </p>
+  <button
+    onClick={[Function]}
+  >
+    Remove
+  </button>
+  <Link
+    to="/edit/jihugytdrh657tuyg3rheduyyri76uy"
+  >
+    Edit
+  </Link>
+</div>
+`;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render TaskForm correctly 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <input
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
+  <input
+    checked={false}
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <button
+    type="submit"
+  >
+    Add Task
+  </button>
+</form>
+`;

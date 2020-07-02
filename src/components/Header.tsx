@@ -1,31 +1,52 @@
 import React from "react";
-import { connect } from "react-redux";
-import { ThunkDispatch } from "redux-thunk";
+import { connect, ConnectedProps } from "react-redux";
 import { AnyAction } from "redux";
-import { startLogout } from "../actions/auth";
-import { History } from "history";
+import { ThunkDispatch } from "redux-thunk";
+import { startDelete, startLogout } from "../actions/auth";
 
-interface Props {
-  logout: () => Promise<any>;
-  history: History<any>;
-}
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>
+) => ({
+  logout: () => dispatch(startLogout()),
+  deleteUser: () => dispatch(startDelete())
+});
 
-const Header = ({ logout, history }: Props) => {
+const connector = connect(undefined, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type IHeaderProps = PropsFromRedux & {
+  history: {
+    push: (arg0: string) => void;
+  };
+};
+
+export const Header = ({
+  logout,
+  deleteUser,
+  history
+}: IHeaderProps) => {
   const tryLogout = () => {
     logout();
+    history.push("/");
+  };
+
+  const tryDeleteUser = () => {
+    deleteUser();
     history.push("/");
   };
 
   return (
     <div>
       <h1>Task Manager</h1>
-      <button onClick={tryLogout}>Logout</button>
+      <button id="logout" onClick={tryLogout}>
+        Logout
+      </button>
+      <button id="deleteUser" onClick={tryDeleteUser}>
+        Delete Account
+      </button>
     </div>
   );
 };
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
-  logout: () => dispatch(startLogout())
-});
-
-export default connect(undefined, mapDispatchToProps)(Header);
+export default connector(Header);

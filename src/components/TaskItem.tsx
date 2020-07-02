@@ -1,15 +1,16 @@
 import React from "react";
 import TaskType from "../types/task";
+import { Link } from "react-router-dom";
 
-interface Props {
+interface ITaskItemProps {
   task: TaskType;
   handleRemove: (arg0: string) => void;
 }
 
-const TaskItem = ({
+export const TaskItem = ({
   handleRemove,
   task: { description, completed, _id }
-}: Props) => {
+}: ITaskItemProps) => {
   const removeItem = (e: any) => {
     handleRemove(_id);
   };
@@ -18,6 +19,7 @@ const TaskItem = ({
       <p>{description}</p>
       <p>Completed: {completed ? "yes" : "no"}</p>
       <button onClick={removeItem}>Remove</button>
+      <Link to={`/edit/${_id}`}>Edit</Link>
     </div>
   );
 };

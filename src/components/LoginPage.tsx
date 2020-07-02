@@ -7,7 +7,9 @@ import { ThunkDispatch } from "redux-thunk";
 import { startLogin } from "../actions/auth";
 import { startSetTasks } from "../actions/task";
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>
+) => ({
   setTasks: () => dispatch(startSetTasks()),
   login: (email: string, password: string) =>
     dispatch(startLogin(email, password))
@@ -17,9 +19,13 @@ const connector = connect(undefined, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & RouteComponentProps;
+type ILoginPageProps = PropsFromRedux & RouteComponentProps;
 
-const LoginPage = ({ history, setTasks, login }: Props) => {
+export const LoginPage = ({
+  history,
+  setTasks,
+  login
+}: ILoginPageProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render TaskList correctly 1`] = `
+<div>
+  <TaskItem
+    handleRemove={[MockFunction]}
+    key="jihugytdrhgxcvbhjkuyyri76uy"
+    task={
+      Object {
+        "_id": "jihugytdrhgxcvbhjkuyyri76uy",
+        "completed": false,
+        "description": "Get Swole",
+      }
+    }
+  />
+  <TaskItem
+    handleRemove={[MockFunction]}
+    key="jihugyjhuyo8767563teyri76uydh"
+    task={
+      Object {
+        "_id": "jihugyjhuyo8767563teyri76uydh",
+        "completed": true,
+        "description": "Get groceries",
+      }
+    }
+  />
+  <TaskItem
+    handleRemove={[MockFunction]}
+    key="jihugytdrh657tuyg3rheduyyri76uy"
+    task={
+      Object {
+        "_id": "jihugytdrh657tuyg3rheduyyri76uy",
+        "completed": false,
+        "description": "Im not creative",
+      }
+    }
+  />
+</div>
+`;

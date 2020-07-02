@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render EditTaskPage correctly 1`] = `
+<div>
+  <TaskForm
+    history={
+      Object {
+        "push": [MockFunction],
+      }
+    }
+    saveTask={[Function]}
+    task={
+      Object {
+        "_id": "jihugytdrhgxcvbhjkuyyri76uy",
+        "completed": false,
+        "description": "Get Swole",
+      }
+    }
+  />
+</div>
+`;

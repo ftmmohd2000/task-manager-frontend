@@ -1,6 +1,10 @@
 import TaskType from "../types/task";
 import client from "../rest/api";
 
+export interface InitAction {
+  type: "@@INIT";
+}
+
 export interface SetTasksAction {
   type: "SET_TASKS";
   tasks: TaskType[];
@@ -16,11 +20,24 @@ export interface RemoveTaskAction {
   id: string;
 }
 
+export interface EditTaskAction {
+  type: "EDIT_TASK";
+  id: string;
+  updates: Partial<TaskType>;
+}
+
+export interface ClearTasksAction {
+  type: "CLEAR_TASKS";
+}
+
 export const startSetTasks = () => {
   return (dispatch: any, getState: any) => {
-    client
+    return client
       .get("/tasks", {
-        headers: { Authorization: "Bearer " + getState().auth.token }
+        headers: {
+          Authorization:
+            "Bearer " + getState().auth.user.token
+        }
       })
       .then((res) => {
         dispatch(setTasks(res.data));
@@ -29,34 +46,49 @@ export const startSetTasks = () => {
   };
 };
 
-export const startAddTask = (description: string, completed: boolean) => {
+export const startAddTask = (
+  description: string,
+  completed: boolean
+) => {
   return (dispatch: any, getState: any) => {
-    client
+    return client
       .post(
         "/tasks",
         { description, completed },
         {
-          headers: { Authorization: "Bearer " + getState().auth.token }
+          headers: {
+            Authorization:
+              "Bearer " + getState().auth.user.token
+          }
         }
       )
-      .then(({ data: { description, completed, _id } }: { data: TaskType }) => {
-        dispatch(
-          addTask({
-            description,
-            completed,
-            _id
-          })
-        );
-      })
+      .then(
+        ({
+          data: { description, completed, _id }
+        }: {
+          data: TaskType;
+        }) => {
+          dispatch(
+            addTask({
+              description,
+              completed,
+              _id
+            })
+          );
+        }
+      )
       .catch();
   };
 };
 
 export const startRemoveTask = (id: string) => {
   return (dispatch: any, getState: any) => {
-    client
+    return client
       .delete(`/tasks/${id}`, {
-        headers: { Authorization: "Bearer " + getState().auth.token }
+        headers: {
+          Authorization:
+            "Bearer " + getState().auth.user.token
+        }
       })
       .then((res) => {
         dispatch(removeTask(res.data._id));
@@ -65,19 +97,59 @@ export const startRemoveTask = (id: string) => {
   };
 };
 
-const setTasks = (tasks: TaskType[]): SetTasksAction => ({
+export const startEditTask = (
+  id: string,
+  updates: Partial<TaskType>
+) => {
+  return (dispatch: any, getState: any) => {
+    return client
+      .patch(`/tasks/${id}`, updates, {
+        headers: {
+          Authorization:
+            "Bearer " + getState().auth.user.token
+        }
+      })
+      .then(() => dispatch(editTask(id, updates)))
+      .catch();
+  };
+};
+
+export const setTasks = (
+  tasks: TaskType[]
+): SetTasksAction => ({
   type: "SET_TASKS",
   tasks
 });
 
-const addTask = (task: TaskType): AddTaskAction => ({
+export const addTask = (task: TaskType): AddTaskAction => ({
   type: "ADD_TASK",
   task
 });
 
-const removeTask = (id: string): RemoveTaskAction => ({
+export const removeTask = (
+  id: string
+): RemoveTaskAction => ({
   type: "REMOVE_TASK",
   id
 });
 
-export type TaskActionType = SetTasksAction | AddTaskAction | RemoveTaskAction;
+export const clearTasks = (): ClearTasksAction => ({
+  type: "CLEAR_TASKS"
+});
+
+export const editTask = (
+  id: string,
+  updates: Partial<TaskType>
+): EditTaskAction => ({
+  type: "EDIT_TASK",
+  id,
+  updates
+});
+
+export type TaskActionType =
+  | SetTasksAction
+  | AddTaskAction
+  | RemoveTaskAction
+  | ClearTasksAction
+  | InitAction
+  | EditTaskAction;

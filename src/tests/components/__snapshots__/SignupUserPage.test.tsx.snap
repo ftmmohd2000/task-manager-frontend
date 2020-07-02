@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render SignupUserPage correctly 1`] = `
+<div>
+  <h1>
+    Signup Page
+  </h1>
+  <form
+    onSubmit={[Function]}
+  >
+    <p>
+      email: 
+    </p>
+    <input
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <p>
+      password: 
+    </p>
+    <input
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+    <p>
+      name: 
+    </p>
+    <input
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <p>
+      age: 
+    </p>
+    <input
+      onChange={[Function]}
+      type="number"
+      value={0}
+    />
+    <button>
+      SignUp
+    </button>
+  </form>
+</div>
+`;

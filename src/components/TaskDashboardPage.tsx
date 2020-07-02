@@ -13,20 +13,29 @@ const mapStateToProps = (state: any) => ({
   tasks: state.task.tasks
 });
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>
+) => ({
   removeTask: (id: string) => dispatch(startRemoveTask(id))
 });
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = RouteComponentProps &
+type ITaskDashboardPageProps = RouteComponentProps &
   PropsFromRedux & {
     tasks: TaskType[];
   };
 
-const TaskDashboardPage = ({ removeTask, history, tasks }: Props) => {
+export const TaskDashboardPage = ({
+  removeTask,
+  history,
+  tasks
+}: ITaskDashboardPageProps) => {
   const handleRemove = (id: string) => {
     removeTask(id);
   };

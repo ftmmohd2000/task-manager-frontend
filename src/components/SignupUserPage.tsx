@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 
-interface Props extends RouteComponentProps {
+interface ISignupUserPageProps extends RouteComponentProps {
   signup: (
     arg0: string,
     arg1: string,
@@ -13,7 +13,9 @@ interface Props extends RouteComponentProps {
     arg3: number
   ) => Promise<any>;
 }
-const LoginPage = (props: Props) => {
+export const SignupUserPage = (
+  props: ISignupUserPageProps
+) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -75,8 +77,17 @@ const LoginPage = (props: Props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
-  signup: (name: string, email: string, password: string, age: number = 0) =>
-    dispatch(startSignup(name, email, password, age))
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>
+) => ({
+  signup: (
+    name: string,
+    email: string,
+    password: string,
+    age: number = 0
+  ) => dispatch(startSignup(name, email, password, age))
 });
-export default connect(undefined, mapDispatchToProps)(LoginPage);
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(SignupUserPage);

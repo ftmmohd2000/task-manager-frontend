@@ -2,6 +2,6 @@ export default interface User {
   id: string;
   name: string;
   email: string;
-  age: string;
+  age: number;
   token: string;
 }

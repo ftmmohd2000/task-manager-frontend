@@ -1,7 +1,16 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware,
+  compose
+} from "redux";
 import thunk from "redux-thunk";
-import authReducer from "../reducers/auth";
-import taskReducer from "../reducers/task";
+import authReducer, {
+  AuthStateType
+} from "../reducers/auth";
+import taskReducer, {
+  TaskStateType
+} from "../reducers/task";
 
 declare global {
   interface Window {
@@ -9,7 +18,13 @@ declare global {
   }
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export interface ReduxStateType {
+  auth: AuthStateType;
+  task: TaskStateType;
+}
+
+const composeEnhancers =
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default function () {
   const store = createStore(

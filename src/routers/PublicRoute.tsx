@@ -10,13 +10,17 @@ export const PublicRoute = ({
   <Route
     {...rest}
     component={(props: any) =>
-      isAuthenticated ? <Redirect to="/dashboard" /> : <Component {...props} />
+      isAuthenticated ? (
+        <Redirect to="/dashboard" />
+      ) : (
+        <Component {...props} />
+      )
     }
   />
 );
 
 const mapStateToProps = (state: any) => ({
-  isAuthenticated: !!state.auth.user
+  isAuthenticated: !!state.auth.user.token
 });
 
 export default connect(mapStateToProps)(PublicRoute);
